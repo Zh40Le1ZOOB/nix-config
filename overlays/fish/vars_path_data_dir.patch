@@ -1,0 +1,39 @@
+diff --git a/src/env_universal_common.rs b/src/env_universal_common.rs
+index 8ee9d8466..70b479748 100644
+--- a/src/env_universal_common.rs
++++ b/src/env_universal_common.rs
+@@ -8,7 +8,7 @@ use crate::env::{EnvVar, EnvVarFlags, VarTable};
+ use crate::fallback::fish_mkstemp_cloexec;
+ use crate::fds::{open_cloexec, wopen_cloexec};
+ use crate::flog::{FLOG, FLOGF};
+-use crate::path::path_get_config;
++use crate::path::path_get_data;
+ use crate::path::{path_get_config_remoteness, DirRemoteness};
+ use crate::wchar::{decode_byte_from_char, prelude::*};
+ use crate::wcstringutil::{join_strings, string_suffixes_string, LineIterator};
+@@ -860,7 +860,7 @@ mod fish3_uvars {
+ 
+ /// Return the default variable path, or an empty string on failure.
+ fn default_vars_path_directory() -> Option<WString> {
+-    path_get_config()
++    path_get_data()
+ }
+ 
+ /// Test if the message msg contains the command cmd.
+diff --git a/tests/checks/symlinks-not-overwritten.fish b/tests/checks/symlinks-not-overwritten.fish
+index b5c6c5a27..693ace3bf 100644
+--- a/tests/checks/symlinks-not-overwritten.fish
++++ b/tests/checks/symlinks-not-overwritten.fish
+@@ -4,9 +4,9 @@
+ mkdir -p $XDG_CONFIG_HOME/fish
+ 
+ # fish_variables
+-set -l target_file $XDG_CONFIG_HOME/fish/target_fish_variables
+-set -l fish_variables $XDG_CONFIG_HOME/fish/fish_variables
+-set -l backup_file $XDG_CONFIG_HOME/fish/fish_variables_backup
++set -l target_file $XDG_DATA_HOME/fish/target_fish_variables
++set -l fish_variables $XDG_DATA_HOME/fish/fish_variables
++set -l backup_file $XDG_DATA_HOME/fish/fish_variables_backup
+ 
+ echo >$target_file
+ cp $target_file $backup_file
