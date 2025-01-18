@@ -1,0 +1,62 @@
+diff --git a/src/path.rs b/src/path.rs
+index a08c1248b..0168428e0 100644
+--- a/src/path.rs
++++ b/src/path.rs
+@@ -618,7 +618,7 @@ impl BaseDirectory {
+ /// set, use that directory; otherwise use the path `non_xdg_homepath` rooted in $HOME. Return the
+ /// result; see the base_directory_t fields.
+ #[cfg_attr(test, allow(unused_variables), allow(unreachable_code))]
+-fn make_base_directory(xdg_var: &wstr, non_xdg_homepath: &wstr) -> BaseDirectory {
++fn make_base_directory(preferred_var: &wstr, xdg_var: &wstr, non_xdg_homepath: &wstr) -> BaseDirectory {
+     #[cfg(test)]
+     // If running under `cargo test`, contain ourselves to the build directory and do not try to use
+     // the actual $HOME or $XDG_XXX directories. This prevents the tests from failing and/or stops
+@@ -652,14 +652,19 @@ fn make_base_directory(xdg_var: &wstr, non_xdg_homepath: &wstr) -> BaseDirectory
+ 
+     let mut path = WString::new();
+     let used_xdg;
+-    if let Some(xdg_dir) = vars.getf_unless_empty(xdg_var, EnvMode::GLOBAL | EnvMode::EXPORT) {
+-        path = xdg_dir.as_string() + L!("/fish");
+-        used_xdg = true;
++    if let Some(preferred_dir) = vars.getf_unless_empty(preferred_var, EnvMode::GLOBAL | EnvMode::EXPORT) {
++        path = preferred_dir.as_string();
++        used_xdg = false;
+     } else {
+-        if let Some(home) = vars.getf_unless_empty(L!("HOME"), EnvMode::GLOBAL | EnvMode::EXPORT) {
+-            path = home.as_string() + non_xdg_homepath;
++        if let Some(xdg_dir) = vars.getf_unless_empty(xdg_var, EnvMode::GLOBAL | EnvMode::EXPORT) {
++            path = xdg_dir.as_string() + L!("/fish");
++            used_xdg = true;
++        } else {
++            if let Some(home) = vars.getf_unless_empty(L!("HOME"), EnvMode::GLOBAL | EnvMode::EXPORT) {
++                path = home.as_string() + non_xdg_homepath;
++            }
++            used_xdg = false;
+         }
+-        used_xdg = false;
+     }
+ 
+     set_errno(Errno(0));
+@@ -769,19 +774,19 @@ fn path_remoteness(path: &wstr) -> DirRemoteness {
+ 
+ fn get_data_directory() -> &'static BaseDirectory {
+     static DIR: Lazy<BaseDirectory> =
+-        Lazy::new(|| make_base_directory(L!("XDG_DATA_HOME"), L!("/.local/share/fish")));
++        Lazy::new(|| make_base_directory(L!("FISH_DATA_DIR"), L!("XDG_DATA_HOME"), L!("/.local/share/fish")));
+     &DIR
+ }
+ 
+ fn get_cache_directory() -> &'static BaseDirectory {
+     static DIR: Lazy<BaseDirectory> =
+-        Lazy::new(|| make_base_directory(L!("XDG_CACHE_HOME"), L!("/.cache/fish")));
++        Lazy::new(|| make_base_directory(L!("FISH_CACHE_DIR"), L!("XDG_CACHE_HOME"), L!("/.cache/fish")));
+     &DIR
+ }
+ 
+ fn get_config_directory() -> &'static BaseDirectory {
+     static DIR: Lazy<BaseDirectory> =
+-        Lazy::new(|| make_base_directory(L!("XDG_CONFIG_HOME"), L!("/.config/fish")));
++        Lazy::new(|| make_base_directory(L!("FISH_CONFIG_DIR"), L!("XDG_CONFIG_HOME"), L!("/.config/fish")));
+     &DIR
+ }
+ 
