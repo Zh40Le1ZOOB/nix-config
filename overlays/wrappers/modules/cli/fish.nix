@@ -9,7 +9,7 @@
 
   fish = {
     config = ''
-      fish_config theme choose "Catppuccin Mocha"
+      fish_config theme choose catppuccin-mocha
 
       set -U fifc_bat_opts --terminal-width={$FZF_PREVIEW_COLUMNS} --style=changes,numbers
       set -U fifc_chafa_opts --size={$FZF_PREVIEW_COLUMNS}x{$FZF_PREVIEW_LINES}
@@ -23,7 +23,7 @@
       starship init fish | source
       zoxide init fish | source
     '';
-    themes = [ "${pkgs.catppuccin.fish}/Catppuccin Mocha.theme" ];
+    themes = [ "${pkgs.catppuccin.fish}/catppuccin-mocha.theme" ];
     plugins = with pkgs.fishPlugins; [
       autopair
       fifc
@@ -37,6 +37,7 @@
       chafa
       carapace
       coreutils
+      fzf
       file
       findutils
       gawk

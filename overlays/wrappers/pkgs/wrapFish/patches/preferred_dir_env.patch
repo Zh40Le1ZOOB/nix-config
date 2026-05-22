@@ -1,8 +1,8 @@
 diff --git a/src/path.rs b/src/path.rs
-index a08c1248b..0168428e0 100644
+index 7ccc18102..48d181f66 100644
 --- a/src/path.rs
 +++ b/src/path.rs
-@@ -618,7 +618,7 @@ impl BaseDirectory {
+@@ -561,7 +561,7 @@ fn path(&self) -> Option<WString> {
  /// set, use that directory; otherwise use the path `non_xdg_homepath` rooted in $HOME. Return the
  /// result; see the base_directory_t fields.
  #[cfg_attr(test, allow(unused_variables), allow(unreachable_code))]
@@ -11,7 +11,7 @@ index a08c1248b..0168428e0 100644
      #[cfg(test)]
      // If running under `cargo test`, contain ourselves to the build directory and do not try to use
      // the actual $HOME or $XDG_XXX directories. This prevents the tests from failing and/or stops
-@@ -652,14 +652,19 @@ fn make_base_directory(xdg_var: &wstr, non_xdg_homepath: &wstr) -> BaseDirectory
+@@ -591,14 +591,19 @@ fn make_base_directory(xdg_var: &wstr, non_xdg_homepath: &wstr) -> BaseDirectory
  
      let mut path = WString::new();
      let used_xdg;
@@ -36,27 +36,21 @@ index a08c1248b..0168428e0 100644
 -        used_xdg = false;
      }
  
-     set_errno(Errno(0));
-@@ -769,19 +774,19 @@ fn path_remoteness(path: &wstr) -> DirRemoteness {
- 
- fn get_data_directory() -> &'static BaseDirectory {
-     static DIR: Lazy<BaseDirectory> =
--        Lazy::new(|| make_base_directory(L!("XDG_DATA_HOME"), L!("/.local/share/fish")));
-+        Lazy::new(|| make_base_directory(L!("FISH_DATA_DIR"), L!("XDG_DATA_HOME"), L!("/.local/share/fish")));
-     &DIR
+     let mut remoteness = DirRemoteness::Unknown;
+@@ -714,13 +719,13 @@ pub fn path_remoteness(path: &wstr) -> DirRemoteness {
  }
  
- fn get_cache_directory() -> &'static BaseDirectory {
-     static DIR: Lazy<BaseDirectory> =
--        Lazy::new(|| make_base_directory(L!("XDG_CACHE_HOME"), L!("/.cache/fish")));
-+        Lazy::new(|| make_base_directory(L!("FISH_CACHE_DIR"), L!("XDG_CACHE_HOME"), L!("/.cache/fish")));
-     &DIR
- }
+ static DATA_DIRECTORY: LazyLock<BaseDirectory> =
+-    LazyLock::new(|| make_base_directory(L!("XDG_DATA_HOME"), L!("/.local/share/fish")));
++    LazyLock::new(|| make_base_directory(L!("FISH_DATA_DIR"), L!("XDG_DATA_HOME"), L!("/.local/share/fish")));
  
- fn get_config_directory() -> &'static BaseDirectory {
-     static DIR: Lazy<BaseDirectory> =
--        Lazy::new(|| make_base_directory(L!("XDG_CONFIG_HOME"), L!("/.config/fish")));
-+        Lazy::new(|| make_base_directory(L!("FISH_CONFIG_DIR"), L!("XDG_CONFIG_HOME"), L!("/.config/fish")));
-     &DIR
- }
+ static CACHE_DIRECTORY: LazyLock<BaseDirectory> =
+-    LazyLock::new(|| make_base_directory(L!("XDG_CACHE_HOME"), L!("/.cache/fish")));
++    LazyLock::new(|| make_base_directory(L!("FISH_CACHE_DIR"), L!("XDG_CACHE_HOME"), L!("/.cache/fish")));
  
+ static CONFIG_DIRECTORY: LazyLock<BaseDirectory> =
+-    LazyLock::new(|| make_base_directory(L!("XDG_CONFIG_HOME"), L!("/.config/fish")));
++    LazyLock::new(|| make_base_directory(L!("FISH_CONFIG_DIR"), L!("XDG_CONFIG_HOME"), L!("/.config/fish")));
+ 
+ /// Appends a path component, with a / if necessary.
+ pub fn append_path_component(path: &mut WString, component: &wstr) {

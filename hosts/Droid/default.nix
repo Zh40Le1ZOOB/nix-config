@@ -27,6 +27,5 @@
   nix = {
     package = pkgs.nixVersions.latest;
     extraOptions = "experimental-features = nix-command flakes";
-    substituters = [ "https://mirrors.sjtug.sjtu.edu.cn/nix-channels/store" ];
   };
 }
