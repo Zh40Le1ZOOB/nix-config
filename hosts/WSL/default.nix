@@ -2,15 +2,20 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 {
+  imports = [ inputs.vscode-server.nixosModules.default ];
+
   wsl = {
     enable = true;
     defaultUser = "Zh40Le1ZOOB";
   };
 
   networking.hostName = "WSL";
+
+  services.vscode-server.enable = true;
 
   programs = {
     fish = {
@@ -29,6 +34,7 @@
     gh
     git
     neovim
+    nixfmt
   ];
 
   documentation.man.generateCaches = lib.mkForce false;
