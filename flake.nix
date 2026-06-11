@@ -8,7 +8,6 @@
     };
     wrapper-manager.url = "github:Zh40Le1ZOOB/wrapper-manager";
     catppuccin.url = "github:catppuccin/nix";
-    vscode-server.url = "github:nix-community/nixos-vscode-server";
   };
 
   outputs =
@@ -20,7 +19,7 @@
       wrapper-manager,
       catppuccin,
       ...
-    }@inputs:
+    }:
     let
       overlays = import ./overlays {
         inherit (nixpkgs) lib;
@@ -49,7 +48,6 @@
 
       nixosConfigurations.WSL = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
         modules = [
           nixos-wsl.nixosModules.default
           { wsl.enable = true; }

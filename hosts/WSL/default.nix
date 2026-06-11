@@ -2,12 +2,9 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 {
-  imports = [ inputs.vscode-server.nixosModules.default ];
-
   wsl = {
     enable = true;
     defaultUser = "Zh40Le1ZOOB";
@@ -15,7 +12,7 @@
 
   networking.hostName = "WSL";
 
-  services.vscode-server.enable = true;
+  services.openvscode-server.enable = true;
 
   programs = {
     fish = {
