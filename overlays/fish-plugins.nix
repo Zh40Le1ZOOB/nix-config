@@ -4,13 +4,13 @@ _: prev: {
       path = [ "fifc" ];
       update =
         old:
-        old.overrideAttrs {
-          version = "0.1.1-unstable-2024-12-04";
+        old.overrideAttrs rec {
+          version = "0.3.4-pull-81";
           src = prev.fetchFromGitHub {
-            owner = "gazorby";
+            owner = "Zh40Le1ZOOB";
             repo = "fifc";
-            rev = "a01650cd432becdc6e36feeff5e8d657bd7ee84a";
-            hash = "sha256-Ynb0Yd5EMoz7tXwqF8NNKqCGbzTZn/CwLsZRQXIAVp4=";
+            rev = "12214f5809a21a76cf0ae622cd7af1544c99fb15";
+            hash = "sha256-KxWWNLEMf+MbF0U/jIkyJHDT0fyWREnVgcogTZYeLxM=";
           };
         };
     }

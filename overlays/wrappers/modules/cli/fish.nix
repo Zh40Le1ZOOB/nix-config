@@ -11,6 +11,7 @@
     config = ''
       fish_config theme choose catppuccin-mocha
 
+      set -U fifc_custom_fzf_opts --bind=down:down,up:up,tab:toggle+down
       set -U fifc_bat_opts --terminal-width={$FZF_PREVIEW_COLUMNS} --style=changes,numbers
       set -U fifc_chafa_opts --size={$FZF_PREVIEW_COLUMNS}x{$FZF_PREVIEW_LINES}
       set -U fifc_exa_opts --width={$FZF_PREVIEW_COLUMNS} --all
@@ -25,8 +26,11 @@
     '';
     themes = [ "${pkgs.catppuccin.fish}/catppuccin-mocha.theme" ];
     plugins = with pkgs.fishPlugins; [
-      autopair
       fifc
+      forgit
+      pisces
+      puffer
+      plugin-sudope
     ];
     pathAdd = with pkgs; [
       wrappers.atuin

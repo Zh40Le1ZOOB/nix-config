@@ -100,9 +100,9 @@
                   for path in ''${!pathType}; do
                     if test -d $path; then
                       if test $pathType == conf; then
-                        cp $path/*.fish $out/conf.d/
+                        cp -r $path/* $out/conf.d/
                       else
-                        cp $path/*.fish $out/$pathType/
+                        cp -r $path/* $out/$pathType/
                       fi
                     fi
                   done
