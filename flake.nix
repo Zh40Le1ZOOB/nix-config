@@ -8,6 +8,7 @@
     };
     wrapper-manager.url = "github:Zh40Le1ZOOB/wrapper-manager";
     catppuccin.url = "github:catppuccin/nix";
+    omp-nix.url = "github:yuxqiu/omp-nix";
   };
 
   outputs =
@@ -18,6 +19,7 @@
       nix-on-droid,
       wrapper-manager,
       catppuccin,
+      omp-nix,
       ...
     }:
     let
@@ -56,7 +58,10 @@
             nixpkgs = {
               config.allowUnfree = true;
               config.allowBroken = true;
-              overlays = [ overlays ];
+              overlays = [
+                overlays
+                omp-nix.overlays.default
+              ];
             };
           }
 

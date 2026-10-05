@@ -32,6 +32,8 @@
     git
     neovim
     nixfmt
+    nixd
+    oh-my-pi
   ];
 
   documentation.man.generateCaches = lib.mkForce false;

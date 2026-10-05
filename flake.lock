@@ -203,6 +203,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_4": {
+      "locked": {
+        "lastModified": 1778869304,
+        "narHash": "sha256-30sZNZoA1cqF5JNO9fVX+wgiQYjB7HJqqJ4ztCDeBZE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d233902339c02a9c334e7e593de68855ad26c4cb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nmd": {
       "inputs": {
         "nixpkgs": [
@@ -241,12 +257,31 @@
         "type": "gitlab"
       }
     },
+    "omp-nix": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_4"
+      },
+      "locked": {
+        "lastModified": 1787360241,
+        "narHash": "sha256-Qfa/IRm4gdA2UYgsYExflzNgoJB3Y0hWIv4A+MDY70w=",
+        "owner": "yuxqiu",
+        "repo": "omp-nix",
+        "rev": "84c8f2da665ee389778b87c4d8b28c30353c77b0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yuxqiu",
+        "repo": "omp-nix",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
         "nix-on-droid": "nix-on-droid",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_3",
+        "omp-nix": "omp-nix",
         "wrapper-manager": "wrapper-manager"
       }
     },

@@ -15,7 +15,7 @@
       set -U fifc_bat_opts --terminal-width={$FZF_PREVIEW_COLUMNS} --style=changes,numbers
       set -U fifc_chafa_opts --size={$FZF_PREVIEW_COLUMNS}x{$FZF_PREVIEW_LINES}
       set -U fifc_exa_opts --width={$FZF_PREVIEW_COLUMNS} --all
-      set -U fifc_fd_opts --hidden
+      set -U fifc_fd_opts --no-hidden
       set -U fifc_hexyl_opts --terminal-width={$FZF_PREVIEW_COLUMNS} --border=none
 
       atuin init fish | sed "s/-k up/up/g" | source
