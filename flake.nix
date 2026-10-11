@@ -6,7 +6,7 @@
       url = "github:nix-community/nix-on-droid";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    wrapper-manager.url = "github:Zh40Le1ZOOB/wrapper-manager";
+    wrapper-manager.url = "github:Zh40Le1ZOOB/wrapper-manager/master";
     catppuccin.url = "github:catppuccin/nix";
     omp-nix.url = "github:yuxqiu/omp-nix";
   };

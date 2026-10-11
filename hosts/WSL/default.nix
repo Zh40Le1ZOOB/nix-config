@@ -12,8 +12,6 @@
 
   networking.hostName = "WSL";
 
-  services.openvscode-server.enable = true;
-
   programs = {
     fish = {
       enable = true;
